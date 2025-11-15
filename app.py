@@ -1,17 +1,20 @@
 from flask import Flask, jsonify
-from main import get_latest_prices
+import json
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route('/')
 def home():
     return "PC Price Tracker is running"
 
-@app.route("/prices")
+@app.route('/prices')
 def prices():
-    # Returns latest scraped prices as JSON
-    latest_prices = get_latest_prices()
-    return jsonify(latest_prices)
+    try:
+        with open('price_history.json', 'r') as f:
+            data = json.load(f)
+    except FileNotFoundError:
+        data = {}
+    return jsonify(data)
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)

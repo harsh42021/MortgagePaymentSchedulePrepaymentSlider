@@ -1,1 +1,6 @@
-streamlit
+gunicorn
+Flask
+requests
+beautifulsoup4
+lxml
+matplotlib
